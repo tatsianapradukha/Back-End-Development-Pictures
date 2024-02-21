@@ -10,17 +10,14 @@ data: list = json.load(open(json_url))
 ######################################################################
 # RETURN HEALTH OF THE APP
 ######################################################################
-
-
 @app.route("/health")
 def health():
     return jsonify(dict(status="OK")), 200
+    
 
 ######################################################################
 # COUNT THE NUMBER OF PICTURES
 ######################################################################
-
-
 @app.route("/count")
 def count():
     """return length of data"""
@@ -35,16 +32,12 @@ def count():
 ######################################################################
 @app.route("/picture", methods=["GET"])
 def get_pictures():
-    if data: 
-        return jsonify(data), 200
-    return {"message": "Internal server error"}, 500
+    return jsonify(data), 200 
         
 
 ######################################################################
 # GET A PICTURE
 ######################################################################
-
-
 @app.route("/picture/<int:id>", methods=["GET"])
 def get_picture_by_id(id):
     for picture in data:
@@ -69,15 +62,13 @@ def create_picture():
 ######################################################################
 # UPDATE A PICTURE
 ######################################################################
-
-
 @app.route("/picture/<int:id>", methods=["PUT"])
 def update_picture(id):
     picture=request.json
     for i, pic in enumerate(data):
         if pic["id"] == id:
             data[i]=picture                   
-            return picture, 200
+            return picture, 201
     return {"message": "picture not found"}, 404
     
 
